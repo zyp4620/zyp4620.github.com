@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+#wrap div,#wrap1 div{
+	width: 300px;
+	height: 300px;
+	border: #ccc 1px solid;
+	display: none;
+}
+#wrap .on, #wrap1 .on{
+	background: red;
+	color: #fff;
+}
+</style>
+<script>
+window.onload = function(){
+	
+	var oWrap = document.getElementById('wrap');
+	var aBtn = oWrap.getElementsByTagName('input');
+	var aDiv = oWrap.getElementsByTagName('div');
+	var timer = null;
+	for(var i = 0; i < aBtn.length; i++){
+		aBtn[i].index = i;
+		aBtn[i].onmouseover = function(){
+			//alert(this);//input
+			var that = this;
+			timer = setTimeout(function(){
+				//alert(this);//window;
+				for(var i = 0; i < aBtn.length; i++){
+					aBtn[i].className = '';
+					aDiv[i].style.display = 'none';	
+				}
+				that.className = 'on';
+				aDiv[that.index].style.display = 'block';	
+			},300);	
+		}	
+		aBtn[i].onmouseout = function(){
+			clearTimeout(timer);	
+		}
+	}
+	
+} 
+
+</script>
+</head>
+
+<body>
+<div id="wrap">
+	<input type="button" value="体育"  class="on"/>
+	<input type="button"  value="图片"/>
+	<input type="button"  value="专栏"/>
+    <div style="display:block;">体育</div>
+    <div>图片</div>
+    <div>专栏</div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
