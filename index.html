@@ -1,85 +1,86 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>无标题文档</title>
+	<meta charset="UTF-8">
+	<title>Document</title>
 <style>
-#wrap div,#wrap1 div{
-	width: 300px;
-	height: 300px;
-	border: #ccc 1px solid;
-	display: none;
-}
-#wrap .on, #wrap1 .on{
-	background: red;
-	color: #fff;
-}
+	div{
+		overflow: hidden;
+	}
+	span{
+		float:left;
+		width:50px;
+		height:50px;
+		line-height: 50px;
+		text-align: center;
+		font-size: 20px;
+		color:#fff;
+		background: red;
+		border-radius: 50%;
+		margin:10px;
+	}
+	.blue{
+		background: blue;
+	}
 </style>
 <script>
-window.onload = function(){
-	
-	var oWrap = document.getElementById('wrap');
-	var aBtn = oWrap.getElementsByTagName('input');
-	var aDiv = oWrap.getElementsByTagName('div');
-	var timer = null;
-	for(var i = 0; i < aBtn.length; i++){
-		aBtn[i].index = i;
-		aBtn[i].onmouseover = function(){
-			//alert(this);//input
-			var that = this;
-			timer = setTimeout(function(){
-				//alert(this);//window;
-				for(var i = 0; i < aBtn.length; i++){
-					aBtn[i].className = '';
-					aDiv[i].style.display = 'none';	
-				}
-				that.className = 'on';
-				aDiv[that.index].style.display = 'block';	
-			},300);	
-		}	
-		aBtn[i].onmouseout = function(){
-			clearTimeout(timer);	
-		}
+	function toDou(n){
+		return n<10?'0'+n:''+n;
 	}
-	
-} 
+	function rnd(m,n){
+		return parseInt(Math.random()*(n-m))+m;
+	}
+	function toSort(n1,n2){
+		return n1-n2;
+	}
+	function findInArr(arr,n){
+		for(var i=0;i<arr.length;i++){
+			if(n==arr[i]){
+				return true;
+			}
+		}
+		return false;
+	}
+	window.onload=function(){
+		var oWarp=document.getElementById('warp');
+		var aSpan=oWarp.getElementsByTagName('span');
+		var oBtn=document.getElementById('btn');
+		var timer=null;
+		function show(){
+			var arr=[];
+			while(arr.length<7){
+				var n=toDou(rnd(1,34));
+				if(!findInArr(arr,n)){
+					arr.push(n);
+				}
+			}
+			arr.sort(toSort);
+			console.log(arr);
+			for(var i=0;i<aSpan.length;i++){
+				aSpan[i].innerHTML=arr[i];
+			}
+		}
+		oBtn.onclick=function(){
+			clearInterval(timer);
+			timer=setInterval(show, 30);
+			setTimeout(function(){
+				clearInterval(timer);
+			}, 300);
+		}
 
+	}
 </script>
 </head>
-
 <body>
-<div id="wrap">
-	<input type="button" value="体育"  class="on"/>
-	<input type="button"  value="图片"/>
-	<input type="button"  value="专栏"/>
-    <div style="display:block;">体育</div>
-    <div>图片</div>
-    <div>专栏</div>
+<div id="warp">
+	<span>01</span>
+	<span>02</span>
+	<span>03</span>
+	<span>04</span>
+	<span>05</span>
+	<span>06</span>
+	<span class="blue">07</span>
 </div>
+	<input type="button" value="来一发" id="btn">
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
